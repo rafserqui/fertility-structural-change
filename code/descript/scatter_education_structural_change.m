@@ -1,4 +1,4 @@
-function scatter_fertility_education(df,incomelevel,title_add)
+function scatter_education_structural_change(df,incomelevel,title_add)
     
     if strcmp(incomelevel,'all')
         income_group = 'All Income Groups';
@@ -23,34 +23,35 @@ function scatter_fertility_education(df,incomelevel,title_add)
     norm_size = [0.1265625,0.071296296296296,0.672916666666667,0.612962962962963];
     figure('units','normalized','outerposition',norm_size)
     subplot(2,3,1)
-    scatter(df.lgdppc,df.lfp_female,'filled','MarkerFaceAlpha',0.6)
-    title('Labor Force Participation, Female (%)')
-    xlabel('Log of GDP per capita')
+    scatter(df.agr_sh,df.educatt_primary_fem,'filled','MarkerFaceAlpha',0.6)
+    title('Educational Attainment, at least primary (Female)')
+    xlabel('Employment Share (Agriculture)')
     
     subplot(2,3,2)
-    scatter(df.lgdppc,df.educatt_primary_fem,'filled','MarkerFaceAlpha',0.6)
+    scatter(df.man_sh,df.educatt_primary_fem,'filled','MarkerFaceAlpha',0.6)
     title('Educational Attainment, at least primary (Female)')
-    xlabel('Log of GDP per capita')
+    xlabel('Employment Share (Manufacturing)')
     
     subplot(2,3,3)
-    scatter(df.lgdppc,df.educatt_lsecond_female,'filled','MarkerFaceAlpha',0.6)
-    xlabel('Log GDP per capita')
-    title('Educational Attainment, at least lower secondary (Female)')
-    
+    scatter(df.ser_sh,df.educatt_primary_fem,'filled','MarkerFaceAlpha',0.6)
+    xlabel('Employment Share (Services)')
+    title('Educational Attainment, at least primary (Female)')
+
+
     subplot(2,3,4)
-    scatter(df.fert,df.lfp_female,'filled','MarkerFaceAlpha',0.6)
-    xlabel('Fertility Rate')
+    scatter(df.agr_sh,df.lfp_female,'filled','MarkerFaceAlpha',0.6)
     title('Labor Force Participation, Female (%)')
+    xlabel('Employment Share (Agriculture)')
     
     subplot(2,3,5)
-    scatter(df.fert,df.educatt_primary_fem,'filled','MarkerFaceAlpha',0.6)
-    xlabel('Fertility Rate')
-    title('Educational Attainment, at least primary (Female)')
+    scatter(df.man_sh,df.lfp_female,'filled','MarkerFaceAlpha',0.6)
+    title('Labor Force Participation, Female (%)')
+    xlabel('Employment Share (Manufacturing)')
     
     subplot(2,3,6)
-    scatter(df.fert,df.educatt_lsecond_female,'filled','MarkerFaceAlpha',0.6)
-    xlabel('Fertility Rate')
-    title('Educational Attainment, at least lower secondary (Female)')
-
+    scatter(df.ser_sh,df.lfp_female,'filled','MarkerFaceAlpha',0.6)
+    xlabel('Employment Share (Services)')
+    title('Labor Force Participation, Female (%)')
+    
     sgtitle(title_add)
 end

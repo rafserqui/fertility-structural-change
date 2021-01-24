@@ -28,6 +28,16 @@ title_add = 'All Income Groups (2000)';
 scatter_structural_change(dfy,'all',title_add)
 print(sprintf('%sfertility_structuralchange',figs_folder),'-dpng','-r1080');
 
+
+tspans = [1980, 1990, 2000, 2010];
+for yy = 1:length(tspans)
+    ykeep = tspans(yy);
+    dfy = df(df.date == ykeep,:);
+    title_add = ['All Income Groups (',num2str(ykeep),')'];
+    scatter_structural_change(dfy,'all',title_add)
+end
+
+
 % By income group
 incgroups = unique(df.incomelevel,'stable');
 
@@ -103,8 +113,24 @@ for ccs = 1:length(lics)
 end
 legend(lics,'location','best')
 
+% Educational attainment and fertility
+incgroups = unique(df.incomelevel,'stable');
 
-% Correlation between growth rates
-%for cc = 1:length(countries)
-%    dfsub = 
-%end
+for ilv = 1:length(incgroups)
+    ilvl = incgroups{ilv};
+    scatter_fertility_education(df,ilvl)
+end
+
+scatter_fertility_education(df,'HIC',title_add)
+
+scatter_education_structural_change(df,'all')
+
+% Corr LFP and ST
+corr(df.lfp_female,df.agr_sh,'rows','complete')
+corr(df.lfp_female,df.man_sh,'rows','complete')
+corr(df.lfp_female,df.ser_sh,'rows','complete')
+
+% Corr Educ att and ST
+corr(df.educatt_primary_fem,df.agr_sh,'rows','complete')
+corr(df.educatt_primary_fem,df.man_sh,'rows','complete')
+corr(df.educatt_primary_fem,df.ser_sh,'rows','complete')
